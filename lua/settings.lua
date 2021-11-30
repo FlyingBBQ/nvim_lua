@@ -18,7 +18,6 @@ vim.o.scrolloff = 2
 vim.o.sidescrolloff = 5
 vim.o.updatetime = 500
 vim.o.lazyredraw = true
-vim.o.showmatch = true
 
 -- Search
 vim.o.ignorecase = true

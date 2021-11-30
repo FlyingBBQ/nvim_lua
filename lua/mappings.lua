@@ -8,3 +8,16 @@ vim.api.nvim_set_keymap('n', '<Leader>m', '<cmd>Telescope git_files<cr>', {norem
 vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>Telescope live_grep<cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>Telescope help_tags<cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>f', ':<C-u>lua require("telescope.builtin").current_buffer_fuzzy_find()<cr>', {noremap = true})
+
+-- Gitsigns
+vim.api.nvim_set_keymap('n', ']c', '<cmd>lua require"gitsigns.actions".next_hunk()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '[c', '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>hs', '<cmd>lua require"gitsigns".stage_hunk()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('v', '<leader>hs', '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>hu', '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>hr', '<cmd>lua require"gitsigns".reset_hunk()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('v', '<leader>hr', '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>hR', '<cmd>lua require"gitsigns".reset_buffer()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>hp', '<cmd>lua require"gitsigns".preview_hunk()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>hS', '<cmd>lua require"gitsigns".stage_buffer()<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>hU', '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', {noremap = true})

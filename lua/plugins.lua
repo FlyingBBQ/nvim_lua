@@ -12,4 +12,12 @@ return require('packer').startup(function()
             {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
         }
     }
+
+    -- Git
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+    }
 end)
