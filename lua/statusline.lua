@@ -12,10 +12,20 @@ local function get_path()
     end
 end
 
+local function git_status()
+    local status = vim.b.gitsigns_status
+    if status ~= nil then
+        return '[' .. status .. ']'
+    else
+        return ''
+    end
+end
+
 function status_line()
     return table.concat {
         nr_of_buffers(),
         " :: %t :: ",
+        git_status(),
         "%h%m%r",
         "%=%<", -- center
         get_path(),
