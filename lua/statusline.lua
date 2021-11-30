@@ -14,10 +14,10 @@ end
 
 local function git_status()
     local status = vim.b.gitsigns_status
-    if status ~= nil then
-        return '[' .. status .. ']'
-    else
+    if (status == nil or status == '') then
         return ''
+    else
+        return '[' .. status .. ']'
     end
 end
 

@@ -30,11 +30,6 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
 
--- Colors
-vim.o.background = 'dark'
-vim.o.termguicolors = true
-vim.cmd('colorscheme darcula')
-
 -- Undo
 vim.o.undodir = os.getenv("HOME") .. '/.local/share/nvim/undodir'
 vim.o.undofile = true

@@ -3,6 +3,7 @@ return require('packer').startup(function()
 
     -- Visual
     use 'flyingbbq/darcula'
+    use 'nvim-treesitter/nvim-treesitter'
 
     -- Navigation
     use {
