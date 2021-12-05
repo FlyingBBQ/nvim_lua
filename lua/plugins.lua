@@ -3,7 +3,7 @@ return require('packer').startup(function()
 
     -- Visual
     use 'flyingbbq/darcula'
-    use 'nvim-treesitter/nvim-treesitter'
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
     -- Navigation
     use {
@@ -22,4 +22,7 @@ return require('packer').startup(function()
             'nvim-lua/plenary.nvim'
         },
     }
+
+    -- Autocomplete
+    use 'neovim/nvim-lspconfig'
 end)
