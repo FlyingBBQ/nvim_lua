@@ -1,8 +1,17 @@
-local function nr_of_buffers()
+local M = {}
+
+M.colors = {
+  active    = "%#StatusLine#",
+  inactive  = "%#StatusLineNC#",
+  inverse   = "%#StatusInverse#",
+  warning   = "%#StatusWarning#",
+}
+
+M.nr_of_buffers = function()
     return '[' .. #(vim.api.nvim_list_bufs()) .. ']'
 end
 
-local function get_path()
+M.get_path = function()
     local path = string.match(vim.api.nvim_buf_get_name(0), "^(.-)[^/]-$")
     local relative = string.match(path, "/home/.-(/.-)$")
     if relative and ((vim.api.nvim_win_get_width(0) - 40) > (3 * #relative)) then
@@ -12,7 +21,7 @@ local function get_path()
     end
 end
 
-local function git_status()
+M.git_status = function()
     local status = vim.b.gitsigns_status
     if (status == nil or status == '') then
         return ''
@@ -21,18 +30,40 @@ local function git_status()
     end
 end
 
-function status_line()
+M.set_active = function(self)
     return table.concat {
-        nr_of_buffers(),
+        self.colors.inverse,
+        self:nr_of_buffers(),
+        self.colors.active,
         " :: %t :: ",
-        git_status(),
+        self:git_status(),
         "%h%m%r",
-        "%=%<", -- center
-        get_path(),
-        "%=", -- right side
+        "%=",
         "%3.p%% ",
+        self.colors.inverse,
         "[%3l/%L ::%3.c]",
     }
 end
 
-vim.o.statusline = "%!luaeval('status_line()')"
+M.set_inactive = function(self)
+    return table.concat {
+        self.colors.inactive,
+        "%=",
+        self:get_path(),
+        "%t %m",
+        "%=",
+    }
+end
+
+Statusline = setmetatable(M, {
+    __call = function(self, mode)
+        return self["set_" .. mode](self)
+    end,
+})
+
+vim.cmd [[
+  augroup Statusline
+  autocmd!
+  autocmd WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline('active')
+  autocmd WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline('inactive')
+]]

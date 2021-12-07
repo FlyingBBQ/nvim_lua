@@ -12,3 +12,6 @@ vim.cmd('highlight! link TSNote Todo')
 vim.cmd('highlight! link TSWarning Todo')
 vim.cmd('highlight! link TSDanger Error')
 vim.cmd('highlight! link TSError Error')
+
+vim.cmd('highlight link StatusInverse TermCursor')
+vim.cmd('highlight link StatusWarning Visual')
