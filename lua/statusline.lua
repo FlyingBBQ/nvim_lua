@@ -8,13 +8,19 @@ M.colors = {
 }
 
 M.nr_of_buffers = function()
-    return '[' .. #(vim.api.nvim_list_bufs()) .. ']'
+    local buffers = 0
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.fn.buflisted(buf) == 1 then
+            buffers = buffers + 1
+        end
+    end
+    return '[' .. buffers .. ']'
 end
 
 M.get_path = function()
     local path = string.match(vim.api.nvim_buf_get_name(0), "^(.-)[^/]-$")
     local relative = string.match(path, "/home/.-(/.-)$")
-    if relative and ((vim.api.nvim_win_get_width(0) - 40) > (3 * #relative)) then
+    if relative ~= nil and ((vim.api.nvim_win_get_width(0) - 40) > (3 * #relative)) then
         return '~' .. relative
     else
         return ''
@@ -23,7 +29,7 @@ end
 
 M.git_status = function()
     local status = vim.b.gitsigns_status
-    if (status == nil or status == '') then
+    if status == nil or status == '' then
         return ''
     else
         return '[' .. status .. ']'
