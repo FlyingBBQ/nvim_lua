@@ -29,3 +29,6 @@ vim.api.nvim_set_keymap('n', '<leader>hR', '<cmd>lua require"gitsigns".reset_buf
 vim.api.nvim_set_keymap('n', '<leader>hp', '<cmd>lua require"gitsigns".preview_hunk()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>hS', '<cmd>lua require"gitsigns".stage_buffer()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>hU', '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', {noremap = true})
+
+vim.cmd([[command! Tb8 :set tabstop=8 shiftwidth=8 softtabstop=8]])
+vim.cmd([[command! Tb4 :set tabstop=4 shiftwidth=4 softtabstop=4]])
