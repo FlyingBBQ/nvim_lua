@@ -13,7 +13,9 @@ vim.api.nvim_set_keymap('n', '<leader>b', '<cmd>Telescope buffers<cr>', {noremap
 vim.api.nvim_set_keymap('n', '<Leader>m', '<cmd>Telescope git_files<cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>Telescope live_grep<cr>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>Telescope help_tags<cr>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<leader>f', ':<C-u>lua require("telescope.builtin").current_buffer_fuzzy_find()<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>lua require("telescope.builtin").grep_string({search = vim.fn.expand("<cword>")})<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<cr>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>s', '<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>', {noremap = true})
 
 -- Gitsigns
 vim.api.nvim_set_keymap('n', ']c', '<cmd>lua require"gitsigns.actions".next_hunk()<CR>', {noremap = true})
