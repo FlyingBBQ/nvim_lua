@@ -61,15 +61,23 @@ M.set_inactive = function(self)
     }
 end
 
-Statusline = setmetatable(M, {
+local statusline = setmetatable(M, {
     __call = function(self, mode)
-        return self["set_" .. mode](self)
+        vim.opt_local.statusline = self["set_" .. mode](self)
     end,
 })
 
-vim.cmd [[
-  augroup Statusline
-  autocmd!
-  autocmd WinEnter,BufEnter * setlocal statusline=%!v:lua.Statusline('active')
-  autocmd WinLeave,BufLeave * setlocal statusline=%!v:lua.Statusline('inactive')
-]]
+local statusline_highlight_group = vim.api.nvim_create_augroup(
+    'StatusLine', { clear = true }
+)
+vim.api.nvim_create_autocmd({"WinEnter", "BufEnter"}, {
+    pattern = "*",
+    callback = function() statusline('active') end,
+    group = statusline_highlight_group,
+})
+vim.api.nvim_create_autocmd({"WinLeave", "BufLeave"}, {
+    pattern = "*",
+    callback = function() statusline('inactive') end,
+    group = statusline_highlight_group,
+})
+

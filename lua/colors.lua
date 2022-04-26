@@ -4,14 +4,15 @@ vim.o.termguicolors = true
 vim.cmd('colorscheme darcula')
 
 -- Highlight groups
-vim.cmd('highlight link diffAdded String')
-vim.cmd('highlight link diffRemoved Comment')
-vim.cmd('highlight link diffLine Number')
+vim.api.nvim_set_hl(0, 'diffAdded', { link = "String" })
+vim.api.nvim_set_hl(0, 'diffAdded', { link = "String" })
+vim.api.nvim_set_hl(0, 'diffRemoved', { link = "Comment" })
+vim.api.nvim_set_hl(0, 'diffLine', { link = "Number" })
 
-vim.cmd('highlight! link TSNote Todo')
-vim.cmd('highlight! link TSWarning Todo')
-vim.cmd('highlight! link TSDanger Error')
-vim.cmd('highlight! link TSError Error')
+vim.api.nvim_set_hl(0, 'TSNote', { link = "Todo" })
+vim.api.nvim_set_hl(0, 'TSWarning', { link = "Todo" })
+vim.api.nvim_set_hl(0, 'TSDanger', { link = "Error" })
+vim.api.nvim_set_hl(0, 'TSError', { link = "Error" })
 
-vim.cmd('highlight link StatusInverse TermCursor')
-vim.cmd('highlight link StatusWarning Visual')
+vim.api.nvim_set_hl(0, 'StatusInverse', { link = "TermCursor" })
+vim.api.nvim_set_hl(0, 'StatusWarning', { link = "Visual" })
