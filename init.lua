@@ -11,3 +11,5 @@ require('navigation')
 require('treesitter')
 require('completion')
 require('git')
+
+require('ts-fix')
