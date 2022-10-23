@@ -20,7 +20,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
     -- Set autocommands conditional on server_capabilities.
-    if client.resolved_capabilities.document_highlight then
+    if client.server_capabilities.document_highlight then
         vim.api.nvim_set_hl(0, 'LspReferenceRead', { bg = '#3A3A3A' })
         vim.api.nvim_set_hl(0, 'LspReferenceText', { bg = '#3A3A3A' })
         vim.api.nvim_set_hl(0, 'LspReferenceWrite', { bg = '#3A3A3A' })
@@ -42,7 +42,7 @@ local on_attach = function(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches.
