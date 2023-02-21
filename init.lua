@@ -2,12 +2,7 @@
 -- FlyingBBQ » nvim
 --
 
-require('plugins')
-require('settings')
-require('colors')
-require('mappings')
-require('statusline')
-require('navigation')
-require('treesitter')
-require('completion')
-require('git')
+require('user.settings')
+require('user.mappings')
+require('user.plugins')
+require('user.statusline')

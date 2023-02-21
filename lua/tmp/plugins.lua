@@ -4,10 +4,19 @@ return require('packer').startup(function()
     -- Visual
     use 'flyingbbq/darcula'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use '~/code/hindsight'
+    use 'rktjmp/lush.nvim'
+    use 'nvim-treesitter/playground'
 
     -- Motion
     use 'tpope/vim-surround'
     use 'godlygeek/tabular'
+
+    -- Comment
+    use {
+        'numToStr/Comment.nvim',
+        config = function() require('Comment').setup() end
+    }
 
     -- Navigation
     use {
@@ -41,5 +50,5 @@ return require('packer').startup(function()
     }
 
     -- Markdown
-    use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
+    use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install' }
 end)
