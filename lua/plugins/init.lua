@@ -212,6 +212,10 @@ return {
                     local bufnr = args.buf
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
+                    if client.server_capabilities.completionProvider then
+                        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+                    end
+
                     -- Mappings.
                     local opts = { buffer = bufnr, silent = true }
                     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
@@ -223,31 +227,6 @@ return {
                     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
                     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
                     vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-
-                    if client.server_capabilities.completionProvider then
-                        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-                    end
-
-                    -- Set autocommands conditional on server_capabilities.
-                    if client.server_capabilities.document_highlight then
-                        vim.api.nvim_set_hl(0, 'LspReferenceRead', { bg = '#3A3A3A' })
-                        vim.api.nvim_set_hl(0, 'LspReferenceText', { bg = '#3A3A3A' })
-                        vim.api.nvim_set_hl(0, 'LspReferenceWrite', { bg = '#3A3A3A' })
-
-                        local document_hightlight_group = vim.api.nvim_create_augroup(
-                            'LspDocumentHighlight', { clear = true }
-                        )
-                        vim.api.nvim_create_autocmd("CursorHold", {
-                            buffer = 0,
-                            callback = vim.lsp.buf.document_highlight,
-                            group = document_hightlight_group,
-                        })
-                        vim.api.nvim_create_autocmd("CursorMoved", {
-                            buffer = 0,
-                            callback = vim.lsp.buf.clear_references,
-                            group = document_hightlight_group,
-                        })
-                    end
                 end
             })
 
