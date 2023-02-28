@@ -1,7 +1,7 @@
 return {
     {
         'L3MON4D3/LuaSnip',
-        version = '<CurrentMajor>.*',
+        version = 'v1.*',
         dependencies = {
             'rafamadriz/friendly-snippets',
             config = function()
