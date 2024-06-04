@@ -8,12 +8,5 @@ return {
         'godlygeek/tabular',
         cmd = 'Tabularize',
     },
-
-    {
-        'numToStr/Comment.nvim',
-        config = function ()
-            require('Comment').setup()
-        end,
-    },
 }
 
