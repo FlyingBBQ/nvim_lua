@@ -28,21 +28,36 @@ return {
                     local bufnr = args.buf
                     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-                    if client.server_capabilities.completionProvider then
-                        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-                    end
+                    if client ~= nil then
+                        -- Capabilities.
+                        if client.server_capabilities.completionProvider then
+                            vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+                        end
+                        if client.server_capabilities.definitionProvider then
+                            vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+                        end
 
-                    -- Mappings.
-                    local opts = { buffer = bufnr, silent = true }
-                    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-                    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-                    vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, opts)
-                    vim.keymap.set('n', '<space>n', vim.lsp.buf.rename, opts)
-                    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-                    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-                    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+                        -- Mappings.
+                        local opts = { buffer = bufnr, silent = true }
+                        if client.supports_method('textDocument/declaration') then
+                            vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+                        end
+                        if client.supports_method('textDocument/definition') then
+                            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+                        end
+                        if client.supports_method('textDocument/implementation') then
+                            vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+                        end
+                        if client.supports_method('textDocument/references') then
+                            vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+                        end
+                        if client.supports_method('textDocument/signatureHelp') then
+                            vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, opts)
+                        end
+                        if client.supports_method('textDocument/rename') then
+                            vim.keymap.set('n', '<space>n', vim.lsp.buf.rename, opts)
+                        end
+                    end
                 end
             })
 
