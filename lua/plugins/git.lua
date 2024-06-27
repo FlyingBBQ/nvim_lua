@@ -9,12 +9,12 @@ return {
         event = { 'BufReadPre', 'BufNewFile' },
         opts = {
             signs = {
-                add = {hl = 'CursorLineNR', text = '+'},
-                change = {hl = 'CursorLineNR', text = '~'},
-                delete = {hl = 'CursorLineNR', text = '_'},
-                topdelete = {hl = 'CursorLineNR', text = '‾'},
-                changedelete = {hl = 'CursorLineNR', text = '-'},
-                untracked = { hl = 'CusorLineNR', text = '┆' },
+                add          = {text = '+'},
+                change       = {text = '~'},
+                delete       = {text = '_'},
+                topdelete    = {text = '‾'},
+                changedelete = {text = '-'},
+                untracked    = {text = '┆' },
             },
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
@@ -46,6 +46,14 @@ return {
                 map('n', '<leader>hR', gs.reset_buffer)
                 map('n', '<leader>hp', gs.preview_hunk)
                 map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+
+                -- Colors
+                vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'CursorLineNR' })
+                vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'CursorLineNR' })
+                vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'CursorLineNR' })
+                vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'CursorLineNR' })
+                vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { link = 'CursorLineNR' })
+                vim.api.nvim_set_hl(0, 'GitSignsUntracked', { link = 'CusorLineNR' })
             end
         },
     },
