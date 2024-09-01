@@ -1,10 +1,10 @@
 local M = {}
 
 M.colors = {
-  active    = "%#StatusLine#",
-  inactive  = "%#StatusLineNC#",
-  inverse   = "%#StatusInverse#",
-  warning   = "%#StatusWarning#",
+    active    = "%#StatusLine#",
+    inactive  = "%#StatusLineNC#",
+    inverse   = "%#StatusInverse#",
+    warning   = "%#StatusWarning#",
 }
 
 M.nr_of_buffers = function()
