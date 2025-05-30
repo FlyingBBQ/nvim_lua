@@ -36,6 +36,18 @@ M.git_status = function()
     end
 end
 
+M.lsp_status = function()
+    local attached_clients = vim.lsp.get_clients({ bufnr = 0 })
+    if #attached_clients == 0 then
+        return ''
+    end
+    local names = {}
+    for _, client in ipairs(attached_clients) do
+        table.insert(names, client.name)
+    end
+    return '[' .. table.concat(names, ", ") .. ']'
+end
+
 M.set_active = function(self)
     return table.concat {
         self.colors.inverse,
@@ -45,7 +57,8 @@ M.set_active = function(self)
         self:git_status(),
         "%h%m%r",
         "%=",
-        "%3.p%% ",
+        self:lsp_status(),
+        " %3.p%% ",
         self.colors.inverse,
         " %3l/%L ::%3.c ",
     }
