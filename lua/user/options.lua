@@ -1,4 +1,4 @@
-vim.g.mapleader = ' '
+vim.g.mapleader = vim.keycode("<space>")
 
 -- General
 vim.o.clipboard = 'unnamedplus'
@@ -6,6 +6,10 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.mouse = 'a'
 vim.o.encoding = 'utf-8'
 vim.o.fileencoding = 'utf-8'
+
+-- Colorscheme
+vim.o.background = 'dark'
+vim.o.termguicolors = true
 
 -- Sidebar
 vim.o.cursorline = true
