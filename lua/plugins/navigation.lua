@@ -1,75 +1,44 @@
 return {
     {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.8',
-        dependencies = {
-            { 'nvim-lua/plenary.nvim' },
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-        },
-        keys = {
-            { '<C-p>', '<cmd>Telescope find_files<cr>' },
-            { '<leader>b', '<cmd>Telescope buffers<cr>' },
-            { '<Leader>m', '<cmd>Telescope git_files<cr>' },
-            { '<leader>g', '<cmd>Telescope live_grep<cr>' },
-            { '<leader>q', '<cmd>Telescope help_tags<cr>' },
-            { '<leader>t', '<cmd>Telescope grep_string({search = vim.fn.expand("<cword>")})<cr>' },
-            { '<leader>f', '<cmd>Telescope current_buffer_fuzzy_find<cr>' },
-            { '<leader>s', '<cmd>Telescope lsp_document_symbols<cr>' },
-        },
-        opts = {
-            defaults = {
-                mappings = {
-                    i = {
-                        ["<esc>"] = "close",
-                        ["<C-j>"] = "move_selection_next",
-                        ["<C-k>"] = "move_selection_previous",
-                        ["<C-x>"] = false,
-                        ["<C-s>"] = "select_horizontal",
-                    }
+        "ibhagwan/fzf-lua",
+        config = function()
+            local fzf = require('fzf-lua')
+            fzf.setup({
+                defaults = {
+                    file_icons = false,
+                    git_icons = true,
+                    color_icons = true,
                 },
-                sorting_strategy = "ascending",
-                layout_strategy = "center",
-                layout_config = {
-                    height = 15,
+                winopts = {
                     width = 100,
-                    preview_cutoff = 1,
-                    prompt_position = "top",
-                },
-                winblend = 10,
-                prompt_prefix = "> ",
-                selection_caret = "> ",
-                entry_prefix = "  ",
-                border = true,
-                borderchars = {
-                    { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-                    prompt = {'─', '│', ' ', '│', '┌', '┐', '│', '│'},
-                    results = {'─', '│', '─', '│', '├', '┤', '┘', '└'},
-                    preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-                },
-            },
-            pickers = {
-                find_files = {
-                    previewer = false,
-                },
-                git_files = {
-                    previewer = false,
-                },
-                buffers = {
-                    previewer = false,
-                },
-            },
-            extensions = {
-                fzf = {
-                    fuzzy = true,
-                    override_generic_sorter = true,
-                    override_file_sorter = true,
-                    case_mode = "smart_case",
+                    border = "single",
+                    preview = {
+                        border = "single",
+                        vertical = "up:40%",
+                        layout = "vertical",
+                    },
                 }
-            },
-        },
-        config = function(_, opts)
-            require('telescope').setup(opts)
-            require('telescope').load_extension('fzf')
+            })
+            local shared_winopts = {
+                row = 0.50,
+                height = 15,
+                preview = {
+                    hidden = true,
+                }
+            }
+            -- Browse
+            vim.keymap.set('n', '<C-p>', function() fzf.files({ winopts = shared_winopts }) end, {})
+            vim.keymap.set('n', '<leader>b', function() fzf.buffers({ winopts = shared_winopts }) end, {})
+            vim.keymap.set('n', '<leader>m', function() fzf.git_files({ winopts = shared_winopts }) end, {})
+            -- Search
+            vim.keymap.set('n', '<leader>g', function() fzf.live_grep() end, {})
+            vim.keymap.set('n', '<leader>t', function() fzf.grep_cword() end, {})
+            vim.keymap.set('n', '<leader>f', function() fzf.lgrep_curbuf() end, {})
+            -- LSP
+            vim.keymap.set('n', '<leader>s', function() fzf.lsp_document_symbols() end, {})
+            -- Help
+            vim.keymap.set('n', '<leader>q', function() fzf.helptags() end, {})
+            vim.keymap.set('n', '<leader>v', function() fzf.builtin() end, {})
         end
     },
 }
