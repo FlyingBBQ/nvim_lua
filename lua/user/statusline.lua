@@ -14,7 +14,7 @@ M.nr_of_buffers = function()
             buffers = buffers + 1
         end
     end
-    return '[' .. buffers .. ']'
+    return ' ' .. buffers .. ' '
 end
 
 M.get_path = function()
@@ -47,7 +47,7 @@ M.set_active = function(self)
         "%=",
         "%3.p%% ",
         self.colors.inverse,
-        "[%3l/%L ::%3.c]",
+        " %3l/%L ::%3.c ",
     }
 end
 
