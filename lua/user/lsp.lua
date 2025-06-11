@@ -1,12 +1,16 @@
 -- :h lsp-config
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('my.lsp', {}),
-  callback = function(event)
-    local opts = { buffer = event.buf, silent = true }
+    group = vim.api.nvim_create_augroup('my.lsp', {}),
+    callback = function(event)
+        local opts = { buffer = event.buf, silent = true }
 
-    vim.keymap.set('n', 'grD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'grd', vim.lsp.buf.definition, opts)
-  end,
+        vim.keymap.set('n', 'grD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'grd', vim.lsp.buf.definition, opts)
+
+        vim.api.nvim_create_user_command("Fmt", function()
+            vim.lsp.buf.format({ async = true })
+        end, {})
+    end,
 })
 
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
