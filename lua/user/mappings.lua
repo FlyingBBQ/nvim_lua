@@ -19,5 +19,14 @@ vim.keymap.set('n', '<leader>cc', function()
     print("reloaded config")
 end)
 
-vim.cmd([[command! Tb8 :set tabstop=8 shiftwidth=8 softtabstop=8]])
-vim.cmd([[command! Tb4 :set tabstop=4 shiftwidth=4 softtabstop=4]])
+vim.api.nvim_create_user_command("TW", function(opts)
+    local width = tonumber(opts.args)
+    if width and width > 0 then
+        vim.opt.tabstop = width
+        vim.opt.shiftwidth = width
+        vim.opt.softtabstop = width
+        vim.notify("Tab width set to " .. width, vim.log.levels.INFO)
+    else
+        vim.notify("Please provide a valid number", vim.log.levels.ERROR)
+    end
+end, { nargs = 1, desc = "Set tab width to specified number" })
