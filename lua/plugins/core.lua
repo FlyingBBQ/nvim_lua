@@ -8,5 +8,13 @@ return {
         'godlygeek/tabular',
         cmd = 'Tabularize',
     },
+
+    {
+        'stevearc/oil.nvim',
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        lazy = false,
+    },
 }
 
