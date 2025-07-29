@@ -1,4 +1,14 @@
 -- :h lsp-config
+--
+-- Language servers are managed with Mason and nvim-lspconfig.
+-- Installed servers automatically enable the LSP:
+--      vim.lsp.enable('rust_analyzer')
+-- Append to server configurations with after/lsp/*.lua files.
+
+vim.lsp.config("*", {
+    capabilities = vim.lsp.protocol.make_client_capabilities()
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('my.lsp', {}),
     callback = function(event)
@@ -37,9 +47,3 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
     end
 })
 
--- Enable configured language servers
--- Server configurations are located in lsp/*.lua files
-vim.lsp.enable('bash_ls')
-vim.lsp.enable('clangd')
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('rust_analyzer')
