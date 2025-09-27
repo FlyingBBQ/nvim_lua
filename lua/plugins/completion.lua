@@ -18,7 +18,9 @@ return {
         },
         fuzzy = {
             implementation = "prefer_rust_with_warning",
-            use_frecency = false,
+            frecency = {
+                enabled = false,
+            },
             use_proximity = false,
         }
     }
