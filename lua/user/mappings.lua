@@ -4,6 +4,9 @@ vim.keymap.set('n', '<leader>r', ':%s/<C-r><C-w>//gc<Left><Left><Left>')
 -- Search (and replace) the selected text
 vim.keymap.set('v', '<leader>r', '"hy:%s/<C-r>h//gc<left><left><left>')
 
+-- Clear search
+vim.keymap.set('n', '<leader>l', '<Cmd>nohlsearch<CR>')
+
 -- Move line up and down in visual mode
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
